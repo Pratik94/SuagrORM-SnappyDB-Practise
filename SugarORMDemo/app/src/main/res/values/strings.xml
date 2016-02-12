@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Sugar ORM Demo</string>
+    <string name="action_settings">Settings</string>
+</resources>
