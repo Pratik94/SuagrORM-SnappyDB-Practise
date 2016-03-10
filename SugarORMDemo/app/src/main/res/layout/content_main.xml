@@ -13,7 +13,45 @@
     tools:showIn="@layout/activity_main">
 
     <TextView
+        android:id="@+id/tvMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
+
+    <LinearLayout
+        android:id="@+id/llBar1"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/tvMain"
+        android:layout_marginTop="20dp"
+        android:weightSum="100" >
+        <View
+            android:id="@+id/v1"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#FF00" />
+        <View
+            android:id="@+id/v2"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:background="#F000" />
+
+        <View
+            android:id="@+id/v3"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:background="#FF00" />
+
+        <View
+            android:id="@+id/v4"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="40"
+            android:background="#F000" />
+
+    </LinearLayout>
+
 </RelativeLayout>

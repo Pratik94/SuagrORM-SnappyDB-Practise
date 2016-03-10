@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.snappydb.DB;
 import com.snappydb.DBFactory;
@@ -20,6 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Status status;
+    private View v1,v2,v3,v4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,73 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        checkBar();
+
         setSupportActionBar(toolbar);
 
+        checkSugarOrm();
+
+        checkSnappyDB();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                startActivity(new Intent(MainActivity.this,SnappyDB.class));
+            }
+        });
+    }
+
+    public void checkBar(){
+        v1 = (View)findViewById(R.id.v1);
+        v2 = (View)findViewById(R.id.v2);
+
+        v3 = (View)findViewById(R.id.v3);
+
+        v4 = (View)findViewById(R.id.v4);
+
+        LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) v1.getLayoutParams();
+
+        params1.weight = 25f;
+
+        LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) v2.getLayoutParams();
+
+        params2.weight = 25f;
+        LinearLayout.LayoutParams params3 = (LinearLayout.LayoutParams) v3.getLayoutParams();
+
+        params3.weight = 25f;
+
+        LinearLayout.LayoutParams params4 = (LinearLayout.LayoutParams) v4.getLayoutParams();
+
+        params4.weight = 25f;
+
+
+    }
+
+    public void checkSnappyDB(){
+        try {
+            DB snappydb = DBFactory.open(this);
+            snappydb.put("name", "Jack Reacher");
+            snappydb.putInt("age", 42);
+            snappydb.putBoolean("single", true);
+            snappydb.put("books", new String[]{"One Shot", "Tripwire", "61 Hours"});
+
+            status = new Status();
+            status.setMessage("Hii");
+            status.setStatus("true");
+
+            snappydb.put("status",status);
+
+            snappydb.close();
+        } catch (SnappydbException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void checkSugarOrm(){
         List<Book> books = new ArrayList<Book>();
         Book book = new Book();
 
@@ -65,38 +132,10 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0;i<books.size();i++){
 
             book = books.get(i);
-                System.out.println("title --" + book.title);
-                System.out.println("edition --" + book.edition);
+            System.out.println("title --" + book.title);
+            System.out.println("edition --" + book.edition);
         }
 
-
-        try {
-            DB snappydb = DBFactory.open(this);
-            snappydb.put("name", "Jack Reacher");
-            snappydb.putInt("age", 42);
-            snappydb.putBoolean("single", true);
-            snappydb.put("books", new String[]{"One Shot", "Tripwire", "61 Hours"});
-
-            status = new Status();
-            status.setMessage("Hii");
-            status.setStatus("true");
-
-            snappydb.put("status",status);
-
-            snappydb.close();
-        } catch (SnappydbException e) {
-            e.printStackTrace();
-        }
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                startActivity(new Intent(MainActivity.this,SnappyDB.class));
-            }
-        });
     }
 
     @Override
