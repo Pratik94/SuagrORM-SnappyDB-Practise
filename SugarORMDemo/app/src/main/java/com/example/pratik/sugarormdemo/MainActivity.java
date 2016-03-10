@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        checkBar();
+        checkProgressBar();
 
         setSupportActionBar(toolbar);
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void checkBar(){
+    public void checkProgressBar(){
         v1 = (View)findViewById(R.id.v1);
         v2 = (View)findViewById(R.id.v2);
 
