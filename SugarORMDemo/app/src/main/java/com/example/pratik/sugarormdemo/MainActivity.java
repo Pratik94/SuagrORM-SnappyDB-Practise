@@ -1,7 +1,9 @@
 package com.example.pratik.sugarormdemo;
 
+import android.app.admin.DevicePolicyManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
+import android.view.WindowManager.LayoutParams;
 
 import com.snappydb.DB;
 import com.snappydb.DBFactory;
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Status status;
     private View v1,v2,v3,v4;
+    DevicePolicyManager mDPM ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +43,32 @@ public class MainActivity extends AppCompatActivity {
 
         checkSnappyDB();
 
+
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                startActivity(new Intent(MainActivity.this,SnappyDB.class));
+
+                checkLockScreen();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//                startActivity(new Intent(MainActivity.this,SnappyDB.class));
             }
         });
     }
+
+    public void checkLockScreen(){
+        Window window = this.getWindow();
+        window.addFlags(LayoutParams.FLAG_DISMISS_KEYGUARD);
+        window.addFlags(LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        window.addFlags(LayoutParams.FLAG_TURN_SCREEN_ON);
+//        mDPM = (DevicePolicyManager) getSystemService(getBaseContext().DEVICE_POLICY_SERVICE);
+        mDPM =  (DevicePolicyManager)getSystemService(getBaseContext().DEVICE_POLICY_SERVICE);
+//        mDPM.lockNow();
+    }
+
+
 
     public void checkProgressBar(){
         v1 = (View)findViewById(R.id.v1);
